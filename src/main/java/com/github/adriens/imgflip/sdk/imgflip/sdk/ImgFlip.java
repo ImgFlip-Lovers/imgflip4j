@@ -48,10 +48,8 @@ public class ImgFlip {
 
     public static void main(String[] args) {
         try {
-            //List<Meme> memes = ImgFlip.getMemes();
             List<Meme> memes = ImgFlip.getMemes();
             System.out.println("Found <" + memes.size() + "> memes");
-            System.out.println("Top 1 meme : " + memes.get(0));
             // loop on top 100 most captionned memes
             System.out.println("-- Top 10 most captionned memes --");
             int i = 1;
