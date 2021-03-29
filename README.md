@@ -1,4 +1,4 @@
-[![](https://jitpack.io/v/adriens/imgflip-sdk.svg)](https://jitpack.io/#adriens/imgflip-sdk)
+[![](https://jitpack.io/v/adriens/imgflip4j.svg)](https://jitpack.io/#adriens/imgflip4j)
 
 # imgflip4j
 
