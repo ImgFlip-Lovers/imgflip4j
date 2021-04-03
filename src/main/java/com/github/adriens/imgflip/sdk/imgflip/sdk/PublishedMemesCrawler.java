@@ -27,7 +27,7 @@ public class PublishedMemesCrawler {
     final static Logger logger = LoggerFactory.getLogger(PublishedMemesCrawler.class);
 
     private static WebClient buildWebClient() {
-        WebClient webClient = new WebClient(BrowserVersion.FIREFOX_78);
+        WebClient webClient = new WebClient(BrowserVersion.FIREFOX);
         webClient.getOptions().setJavaScriptEnabled(false);
         webClient.getOptions().setDownloadImages(false);
         return webClient;
