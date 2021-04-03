@@ -8,6 +8,7 @@ package com.github.adriens.imgflip.sdk.imgflip.sdk;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import kong.unirest.Unirest;
 import org.slf4j.Logger;
@@ -17,9 +18,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author 3004SAL
  */
-public class ImgFlip {
+public class ImgFlipAPI {
 
-    final static Logger logger = LoggerFactory.getLogger(ImgFlip.class);
+    final static Logger logger = LoggerFactory.getLogger(ImgFlipAPI.class);
     public static final String IMGFLIP_API_ROOT_URK = "https://api.imgflip.com/";
 
     /* Returned 100 memes ordered by how many times they were captioned
@@ -35,6 +36,20 @@ public class ImgFlip {
         logger.info("Returning Memes as list of objects.");
         return raw.getData().getMemes();
     }
+    
+    
+    public static Meme getMeme(int memeId) throws JsonProcessingException{
+        Meme out = null;
+        Map<Integer, Meme> map = getMemes().stream().collect(Collectors.toMap(Meme::getId, meme -> meme));
+        out = map.get(memeId);
+        if (out == null){
+            logger.warn("Not able to find meme with id <" + memeId + "> from the top 100. Will return null.");
+            return null;
+        }
+        else {
+            return out;
+        }
+    }
 
     public static List<Meme> getTopNMemes(int n) throws JsonProcessingException {
         int m = n;
@@ -46,9 +61,10 @@ public class ImgFlip {
         return topNMemes;
     }
 
+    
     public static void main(String[] args) {
         try {
-            List<Meme> memes = ImgFlip.getMemes();
+            List<Meme> memes = ImgFlipAPI.getMemes();
             System.out.println("Found <" + memes.size() + "> memes");
             // loop on top 100 most captionned memes
             System.out.println("-- Top 10 most captionned memes --");
@@ -57,6 +73,10 @@ public class ImgFlip {
                 System.out.println(i + ". " + meme);
                 i++;
             }
+            
+            // get a meme from its id
+            System.out.println("Got meme from <217743513> : " + ImgFlipAPI.getMeme(217743513));
+            
             System.exit(0);
         } catch (JsonProcessingException ex) {
             logger.error("Got an error while processing memes from json answer : " + ex.getMessage());

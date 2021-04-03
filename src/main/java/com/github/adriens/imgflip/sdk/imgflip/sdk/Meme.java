@@ -7,14 +7,13 @@ package com.github.adriens.imgflip.sdk.imgflip.sdk;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.net.URL;
 
 /**
  *
  * @author 3004SAL
  */
 public class Meme {
-private long id;
+private int id;
     private String name;
     private String url;
     private int width;
@@ -29,14 +28,14 @@ private long id;
     /**
      * @return the id
      */
-    public long getId() {
+    public int getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -113,7 +112,7 @@ private long id;
     
     public String toString(){
         String out = "";
-        out = "<" + getName() + ">, see <" + getUrl() + ">";
+        out = "<" + getName() + ">, see <" + getUrl() + "> id <" + getId() + ">";
         return out;
     }
 }
