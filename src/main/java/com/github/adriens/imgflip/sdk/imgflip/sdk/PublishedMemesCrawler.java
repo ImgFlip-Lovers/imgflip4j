@@ -22,9 +22,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author 3004SAL
  */
-public class PublishedmemesCrawler {
+public class PublishedMemesCrawler {
 
-    final static Logger logger = LoggerFactory.getLogger(PublishedmemesCrawler.class);
+    final static Logger logger = LoggerFactory.getLogger(PublishedMemesCrawler.class);
 
     private static WebClient buildWebClient() {
         WebClient webClient = new WebClient(BrowserVersion.FIREFOX_78);
@@ -33,7 +33,7 @@ public class PublishedmemesCrawler {
         return webClient;
     }
 
-    public PublishedmemesCrawler() {
+    public PublishedMemesCrawler() {
         java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(java.util.logging.Level.OFF);
         java.util.logging.Logger.getLogger("org.apache.http").setLevel(java.util.logging.Level.OFF);
     }
@@ -50,9 +50,9 @@ public class PublishedmemesCrawler {
         return getPublishedMemes(null, page);
     }
 
-    public static List<PublishedMeme> getPublishedMemes(String channel, int page)
+    public static List<PublishedMeme> getPublishedMemes(String stream, int page)
             throws IOException {
-        String imgFlipUrl = ImgFlipURLHelper.getPagePath(channel, page);
+        String imgFlipUrl = ImgFlipURLHelper.getPagePath(stream, page);
         return getPublishedMemes(imgFlipUrl);
     }
 
@@ -162,14 +162,13 @@ public class PublishedmemesCrawler {
 
             // get counters
             HtmlElement scoreElement = lDivision.getFirstByXPath(".//div[@class='base-info']/div[@class='base-view-count']");
-            
+
             if (scoreElement != null) {
                 logger.info("Filling meme score datas...");
                 String rawsScore = scoreElement.getTextContent();
                 Score lScore = new Score(rawsScore);
                 lMeme.setScore(lScore);
-            }
-            else{
+            } else {
                 logger.warn("No score data available.");
             }
 
@@ -220,8 +219,9 @@ public class PublishedmemesCrawler {
     }
 
     public static void main(String[] args) throws Exception {
-        List<PublishedMeme> memes = PublishedmemesCrawler.getPublishedMemes();
+        //List<PublishedMeme> memes = PublishedMemesCrawler.getPublishedMemes();
         //PublishedmemesCrawler.getNextPageUrl("https://imgflip.com/";//m/fun?sort=latest&after=53z8gv");
+        List<PublishedMeme> memes = PublishedMemesCrawler.getPublishedMemes("fun", 1);
         for (PublishedMeme aMeme : memes) {
             System.out.println(aMeme);
         }
