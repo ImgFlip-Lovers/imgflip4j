@@ -1,6 +1,6 @@
-[![](https://jitpack.io/v/adriens/imgflip-sdk.svg)](https://jitpack.io/#adriens/imgflip-sdk)
+[![](https://jitpack.io/v/adriens/imgflip4j.svg)](https://jitpack.io/#adriens/imgflip4j)
 
-# imgflip-sdk
+# imgflip4j
 
 Java SDK to interact with imgflip
 
