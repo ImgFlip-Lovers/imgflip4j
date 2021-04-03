@@ -47,11 +47,15 @@ public class PublishedMemesCrawler {
 
     public static List<PublishedMeme> getPublishedMemes(int page)
             throws IOException {
-        return getPublishedMemes(null, page);
+        return getPublishedMemes("fun", page);
     }
 
     public static List<PublishedMeme> getPublishedMemes(String stream, int page)
             throws IOException {
+        String lStream;
+        if(stream == null || stream.isEmpty()){
+            lStream = "fun";
+        }
         String imgFlipUrl = ImgFlipURLHelper.getPagePath(stream, page);
         return getPublishedMemes(imgFlipUrl);
     }
@@ -71,10 +75,10 @@ public class PublishedMemesCrawler {
         Iterator<DomElement> memeDivsIterator = divMemesList.iterator();
         int i = 1;
         DomElement lDivision;
-        String imgPath;
+        //String imgPath;
         String imgTitle;
         String imgTitleAlt;
-        HtmlElement lHref;
+        //HtmlElement lHref;
         String rawXml;
         String lMemeTitle;
         HtmlElement lTitleElement;
@@ -97,12 +101,12 @@ public class PublishedMemesCrawler {
             logger.info("Meme title : <" + lMemeTitle + ">");
             lMeme.setTitle(lMemeTitle);
 
-            lHref = lDivision.getFirstByXPath(".//div[@class='base-img-wrap-wrap']/div[@class='base-img-wrap']/a");
+            //lHref = lDivision.getFirstByXPath(".//div[@class='base-img-wrap-wrap']/div[@class='base-img-wrap']/a");
             //lHref = lDivision.getFirstByXPath(".//h2[1]/a");
             //HtmlElement lHref = lDivision.getFirstByXPath("//h2[@class='base-unit-title']/a");
             //HtmlElement lHref = lDivision.getFirstByXPath("/html/body/div[2]/div[3]/div[6]/h2/a");
             //logger.info("href : <" + lHref + ">");
-            imgPath = lHref.getAttribute("href");
+            //imgPath = lHref.getAttribute("href");
             //imgTitleAlt = lHref.getAttribute("alt");
             //logger.info(lHref.asXml());
             //logger.info("Found href : <" + imgPath + ">");
@@ -219,11 +223,13 @@ public class PublishedMemesCrawler {
     }
 
     public static void main(String[] args) throws Exception {
-        //List<PublishedMeme> memes = PublishedMemesCrawler.getPublishedMemes();
+        List<PublishedMeme> memes = PublishedMemesCrawler.getPublishedMemes();
         //PublishedmemesCrawler.getNextPageUrl("https://imgflip.com/";//m/fun?sort=latest&after=53z8gv");
-        List<PublishedMeme> memes = PublishedMemesCrawler.getPublishedMemes("fun", 1);
+        //List<PublishedMeme> memes = PublishedMemesCrawler.getPublishedMemes("fun", 1);
+        int i = 1;
         for (PublishedMeme aMeme : memes) {
-            System.out.println(aMeme);
+            System.out.println(i + ". " + aMeme);
+            i++;
         }
         System.exit(0);
     }
