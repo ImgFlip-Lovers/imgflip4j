@@ -87,8 +87,11 @@ public class ImgFlipURLHelper {
     public static String getPathOfTopSevendays(String stream){
         return getPathOfTopSevendays(stream, 1);
     }
+    public static String getPathOfTopThirtyDays(String stream, int page){
+        return getPathOfTop(stream, "top-30d", page);
+    }
     public static String getPathOfTopThirtyDays(String stream){
-        return getPathOfTop(stream, "top-30d");
+        return getPathOfTopThirtyDays(stream, 1);
     }
     public static String getPathOfTopLastMonth(String stream, int page){
         //top-2021-03
