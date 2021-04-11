@@ -7,8 +7,6 @@ package com.github.adriens.imgflip.sdk.imgflip.sdk;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import org.apache.commons.lang3.StringUtils;
@@ -76,8 +74,11 @@ public class ImgFlipURLHelper {
      public static String getPathOfTop(String inStream, String sortOption){
          return getPathOfTop(inStream, sortOption, 1);
      }
+    public static String getPathOfTopOneDay(String stream, int page){
+        return getPathOfTop(stream, "top-1d", page);
+    }
     public static String getPathOfTopOneDay(String stream){
-        return getPathOfTop(stream, "top-1d");
+        return getPathOfTop(stream, "top-1d", 1);
     }
     public static String getPathOfTopSevendays(String stream){
         return getPathOfTop(stream, "top-7d");
