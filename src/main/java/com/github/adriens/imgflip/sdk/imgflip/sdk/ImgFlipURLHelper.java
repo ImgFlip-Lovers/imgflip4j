@@ -118,7 +118,7 @@ public class ImgFlipURLHelper {
         String sortOpt = "top-" + dateFormat.format(lDate);
         return getPathOfTop(stream, sortOpt, page);
     }
-     public static String getPathOfTopLastYear(String stream){
+    public static String getPathOfTopLastYear(String stream){
          return getPathOfTopLastYear(stream, 1);
      }
     public static String getPathOfTopOfMonthOfYear(String stream, int year, int month, int page){
@@ -128,12 +128,12 @@ public class ImgFlipURLHelper {
     public static String getPathOfTopOfMonthOfYear(String stream, int year, int month){
         return getPathOfTopOfMonthOfYear(stream, year, month, 1);
     }
-    public static String getPathOfTopOfMonthOfYearWithPage(String stream, int year, int page){   
+    public static String getPathOfTopOfYearWithPage(String stream, int year, int page){   
         String sortOpt = "top-" + year;
         return getPathOfTop(stream, sortOpt, page);
     }
-    public static String getPathOfTopOfMonthOfYear(String stream, int year){
-        return getPathOfTopOfMonthOfYearWithPage(stream, year, 1);
+    public static String getPathOfTopOfYear(String stream, int year){
+        return getPathOfTopOfYearWithPage(stream, year, 1);
     }
     
     public static void main(String[] arg){
