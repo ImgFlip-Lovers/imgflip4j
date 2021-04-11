@@ -229,15 +229,45 @@ public class PublishedMemesCrawler {
         return out;
     }
 
+    public static List<MemeTag> getTagsOfMemeFromurl(String aMemeUrl) throws IOException{
+        WebClient webClient = buildWebClient();
+        //int out;
+        logger.info("About to count get tags of Memes from : <" + aMemeUrl + ">");
+        String tagName;
+        String tagUrl;
+        List<MemeTag> out = new ArrayList<MemeTag>();
+        try{
+            
+            HtmlPage htmlPage = webClient.getPage(aMemeUrl);
+            HtmlDivision element = (HtmlDivision) htmlPage.getFirstByXPath("//div[@class='img-tags']");
+            List<DomElement> divTagList = element.getByXPath(".//a");
+            int nbTags = divTagList.size();
+            logger.info("Found <" + nbTags + "> tags on <" + aMemeUrl + ">");
+            for(int i= 0; i < divTagList.size() ; i++){
+                MemeTag lTag = new MemeTag();
+                tagUrl = divTagList.get(i).getAttribute("href");
+                tagName = divTagList.get(i).asNormalizedText();
+                lTag.setUrl(tagUrl);
+                lTag.setName(tagName);
+                logger.info((i+1) + ". Found tag : " + lTag);
+                out.add(lTag);
+            }
+            return out;
+        }
+        catch(IOException ex){
+            throw ex;
+        }
+    }
     public static void main(String[] args) throws Exception {
-        List<PublishedMeme> memes = PublishedMemesCrawler.getPublishedMemes();
+        //List<PublishedMeme> memes = PublishedMemesCrawler.getPublishedMemes();
         //PublishedmemesCrawler.getNextPageUrl("https://imgflip.com/";//m/fun?sort=latest&after=53z8gv");
         //List<PublishedMeme> memes = PublishedMemesCrawler.getPublishedMemes("fun", 1);
-        int i = 1;
+        /*int i = 1;
         for (PublishedMeme aMeme : memes) {
             System.out.println(i + ". " + aMeme);
             i++;
-        }
+        }*/
+        PublishedMemesCrawler.getTagsOfMemeFromurl("https://imgflip.com/i/54vin9");
         System.exit(0);
     }
 }
