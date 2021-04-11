@@ -82,6 +82,7 @@ public class PublishedMemesCrawler {
         String rawXml;
         String lMemeTitle;
         HtmlElement lTitleElement;
+        String lTargetMemeUrl;
 
         logger.info("-------------------------------------------------------------");
         while (memeDivsIterator.hasNext()) {
@@ -95,6 +96,12 @@ public class PublishedMemesCrawler {
             lTitleElement = lDivision.getFirstByXPath(".//h2[@class='base-unit-title']/a");
             if (lTitleElement != null) {
                 lMemeTitle = lTitleElement.getTextContent();
+                // get the meme url ref
+                lTargetMemeUrl = lTitleElement.getAttribute("href");
+                lTargetMemeUrl = ImgFlipURLHelper.IMGFLIP_ROOT_URL + lTargetMemeUrl;
+                lMeme.setMemeUrl(lTargetMemeUrl);
+                logger.info("Found meme target url : <" + lTargetMemeUrl + ">");
+                
             } else {
                 lMemeTitle = "";
             }

@@ -13,6 +13,7 @@ public class PublishedMeme {
 
     private String title;
     private String imageUrl;
+    private String memeUrl;
     private String authorPath;
     private String author;
     private String rawScore;
@@ -46,6 +47,7 @@ public class PublishedMeme {
         return out;
     }
     
+    
     /**
      * @return the title
      */
@@ -59,6 +61,14 @@ public class PublishedMeme {
     public void setTitle(String title) {
         this.title = title;
     }
+    
+    public String getMemeUrl(){
+        return memeUrl;
+    }
+    public void setMemeUrl(String memeUrl){
+        this.memeUrl = memeUrl;
+    }
+    
 
     /**
      * @return the imageUrl
