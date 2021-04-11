@@ -80,8 +80,12 @@ public class ImgFlipURLHelper {
     public static String getPathOfTopOneDay(String stream){
         return getPathOfTop(stream, "top-1d", 1);
     }
+    public static String getPathOfTopSevendays(String stream, int page){
+        return getPathOfTop(stream, "top-7d", page);
+    }
+    
     public static String getPathOfTopSevendays(String stream){
-        return getPathOfTop(stream, "top-7d");
+        return getPathOfTopSevendays(stream, 1);
     }
     public static String getPathOfTopThirtyDays(String stream){
         return getPathOfTop(stream, "top-30d");
