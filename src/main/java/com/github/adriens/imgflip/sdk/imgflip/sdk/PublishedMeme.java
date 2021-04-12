@@ -17,9 +17,6 @@ public class PublishedMeme {
     private String authorPath;
     private String author;
     private String rawScore;
-    private int nbViews;
-    private int nbUpvotes;
-    private int nbComments;
     private String posterUrl;
     private String mp4Url;
     private String webmUrl;
@@ -124,48 +121,6 @@ public class PublishedMeme {
      */
     public void setRawScore(String rawScore) {
         this.rawScore = rawScore;
-    }
-
-    /**
-     * @return the nbViews
-     */
-    public int getNbViews() {
-        return nbViews;
-    }
-
-    /**
-     * @param nbViews the nbViews to set
-     */
-    public void setNbViews(int nbViews) {
-        this.nbViews = nbViews;
-    }
-
-    /**
-     * @return the nbUpvotes
-     */
-    public int getNbUpvotes() {
-        return nbUpvotes;
-    }
-
-    /**
-     * @param nbUpvotes the nbUpvotes to set
-     */
-    public void setNbUpvotes(int nbUpvotes) {
-        this.nbUpvotes = nbUpvotes;
-    }
-
-    /**
-     * @return the nbComments
-     */
-    public int getNbComments() {
-        return nbComments;
-    }
-
-    /**
-     * @param nbComments the nbComments to set
-     */
-    public void setNbComments(int nbComments) {
-        this.nbComments = nbComments;
     }
 
     /**
