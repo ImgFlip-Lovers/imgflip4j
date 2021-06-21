@@ -25,26 +25,23 @@ public class PublishedMeme {
     public PublishedMeme(){
         
     }
-    
-    public String toString(){
-        String out = "";
-        out += "Meme <" + getTitle() + ">";
-        if(getImageUrl()!= null){
-            out += ", url: <" + getImageUrl() + ">";
-        }
-        if(getPosterUrl()!= null){
-            out += ", url: <" + getPosterUrl() + ">";
-        }
-        // append the score
-        if(getScore() != null){
-            out += ", " + getScore();
-        }
-        
-        
-        return out;
+
+    @Override
+    public String toString() {
+        return "PublishedMeme{" +
+                "title='" + title + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", memeUrl='" + memeUrl + '\'' +
+                ", authorPath='" + authorPath + '\'' +
+                ", author='" + author + '\'' +
+                ", rawScore='" + rawScore + '\'' +
+                ", posterUrl='" + posterUrl + '\'' +
+                ", mp4Url='" + mp4Url + '\'' +
+                ", webmUrl='" + webmUrl + '\'' +
+                ", score=" + score +
+                '}';
     }
-    
-    
+
     /**
      * @return the title
      */

@@ -135,6 +135,25 @@ public class ImgFlipURLHelper {
     public static String getPathOfTopOfYear(String stream, int year){
         return getPathOfTopOfYearWithPage(stream, year, 1);
     }
+
+    /**
+     * Add prefix {@code https://} protocol if missing on url
+     * @param url string url to check
+     * @return url with https prefix if needed
+     */
+    public static String addHttpsProtocolIfMissing(String url) {
+        String https = "https:";
+        String prefix = "";
+
+        if (!StringUtils.startsWith(url, "http")) {
+            prefix = https;
+
+            if (!StringUtils.startsWith(url, "//"))
+                prefix = https.concat("//");
+
+        }
+        return prefix.concat(url);
+    }
     
     public static void main(String[] arg){
         System.out.println("Path Fun for Last Month: <" + ImgFlipURLHelper.getPathOfTopLastMonth("fun")+ ">");
