@@ -119,47 +119,60 @@ public class PublishedMemesCrawler {
             //logger.info("Found href : <" + imgPath + ">");
             //logger.info("Found title Alt : <" + imgTitleAlt + ">");
 
+            String baseMediaPath = ".//div[@class='base-img-wrap-wrap']/div[@class='base-img-wrap']/a[@class='base-img-link']";
+
             // get <img> now
-            HtmlElement img = lDivision.getFirstByXPath(".//div[@class='base-img-wrap-wrap']/div[@class='base-img-wrap']/a[@class='base-img-link']/img");
+            HtmlElement img = lDivision.getFirstByXPath(baseMediaPath.concat("/img"));
             //HtmlElement img = lDivision.getFirstByXPath(".//div[1]/div/a/img");
             if (img != null) {
                 String imageSrc = img.getAttribute("src");
-                logger.info("Image source : <" + imageSrc + ">");
+                imageSrc = ImgFlipURLHelper.addHttpsProtocolIfMissing(imageSrc);
+
+                logger.info("Image source : <{}>", imageSrc);
                 lMeme.setImageUrl(imageSrc);
             }
+
             // try alternate img source
-            HtmlElement img2 = lDivision.getFirstByXPath(".//div[@class='base-img-wrap-wrap']/div[@class='base-img-wrap']/a[@class='base-img-link']/div");
+            HtmlElement img2 = lDivision.getFirstByXPath(baseMediaPath.concat("/div"));
             if (img2 != null) {
                 String imageSrc2 = img2.getAttribute("data-src");
-                logger.info("Image source : <" + imageSrc2 + ">");
+                imageSrc2 = ImgFlipURLHelper.addHttpsProtocolIfMissing(imageSrc2);
+
+                logger.info("Image source : <{}>", imageSrc2);
                 lMeme.setImageUrl(imageSrc2);
             }
 
             // get video
-            HtmlElement video = lDivision.getFirstByXPath(".//div[@class='base-img-wrap-wrap']/div[@class='base-img-wrap']/a[@class='base-img-link']/video[@class='base-img ctx-gif']");
+            HtmlElement video = lDivision.getFirstByXPath(baseMediaPath.concat("/video[@class='base-img ctx-gif']"));
             if (video != null) {
                 String videoSrc = video.getAttribute("data-src");
-
                 String posterSrc = video.getAttribute("poster");
-                logger.info("Poster : <" + posterSrc + ">");
+
+                logger.info("Poster : <{}>", posterSrc);
                 lMeme.setPosterUrl(posterSrc);
+
                 // get mp4 url
-                HtmlElement mp4Element = lDivision.getFirstByXPath(".//div[@class='base-img-wrap-wrap']/div[@class='base-img-wrap']/a[@class='base-img-link']/video[@class='base-img ctx-gif']/source[@type='video/mp4']");
+                HtmlElement mp4Element = lDivision.getFirstByXPath(baseMediaPath.concat("/video[@class='base-img ctx-gif']/source[@type='video/mp4']"));
                 if (mp4Element != null) {
                     String mp4Url = mp4Element.getAttribute("src");
-                    logger.info("mp4 url : <" + mp4Url + ">");
+                    mp4Url = ImgFlipURLHelper.addHttpsProtocolIfMissing(mp4Url);
+
+                    logger.info("mp4 url : <{}>", mp4Url);
                     lMeme.setMp4Url(mp4Url);
                 }
 
                 // get webm url
-                HtmlElement webmElement = lDivision.getFirstByXPath(".//div[@class='base-img-wrap-wrap']/div[@class='base-img-wrap']/a[@class='base-img-link']/video[@class='base-img ctx-gif']/source[@type='video/webm']");
+                HtmlElement webmElement = lDivision.getFirstByXPath(baseMediaPath.concat("/video[@class='base-img ctx-gif']/source[@type='video/webm']"));
                 if (webmElement != null) {
                     String webmUrl = webmElement.getAttribute("src");
-                    logger.info("webm url : <" + webmUrl + ">");
+                    webmUrl = ImgFlipURLHelper.addHttpsProtocolIfMissing(webmUrl);
+
+                    logger.info("webm url : <{}>", webmUrl);
                     lMeme.setWebmUrl(webmUrl);
                 }
 
             }
+
             // get author
             HtmlElement authorElement = lDivision.getFirstByXPath(".//div[@class='base-info']/div[@class='base-author']/a[@class='u-username']");
             if (authorElement != null) {
@@ -185,6 +198,7 @@ public class PublishedMemesCrawler {
 
             out.add(lMeme);
             i++;
+            logger.info("{}", lMeme);
             logger.info("-------------------------------------------------------------");
         }
 
@@ -267,6 +281,8 @@ public class PublishedMemesCrawler {
             System.out.println(i + ". " + aMeme);
             i++;
         }*/
+
+        PublishedMemesCrawler.getPublishedMemes();
         PublishedMemesCrawler.getTagsOfMemeFromurl("https://imgflip.com/i/54vin9");
         System.exit(0);
     }
