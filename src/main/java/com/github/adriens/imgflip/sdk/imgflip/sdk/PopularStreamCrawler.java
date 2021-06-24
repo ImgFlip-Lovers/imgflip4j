@@ -48,18 +48,18 @@ public class PopularStreamCrawler {
         return getPopularStreams(false);
     }
 
-    public static List<PopularStream> getPopularStreams(Boolean includeNSFW) throws IOException {
-        if (includeNSFW)
-            return getPopularStreams();
-
-        return getPopularStreams(URL.concat(NSFW_PARAM)).stream().filter(ps -> !ps.getNSFW()).collect(Collectors.toList());
-    }
-
     public static List<PopularStream> getPopularNSFWStreams() throws IOException {
 
-        return getPopularStreams(true).stream()
-                .filter(PopularStream::getNSFW)
-                .collect(Collectors.toList());
+        return getPopularStreams(true).stream().filter(PopularStream::getNSFW).collect(Collectors.toList());
+    }
+
+    public static List<PopularStream> getPopularStreams(Boolean includeNSFW) throws IOException {
+        List<PopularStream> list = getPopularStreams(URL.concat(NSFW_PARAM));
+
+        if (includeNSFW)
+            return list;
+
+        return list.stream().filter(ps -> !ps.getNSFW()).collect(Collectors.toList());
     }
 
     private static List<PopularStream> getPopularStreams(String url) throws IOException {
