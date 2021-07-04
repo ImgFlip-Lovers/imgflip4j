@@ -20,6 +20,7 @@ public class ImgFlipURLHelper {
     public static final String IMGFLIP_ROOT_URL = "https://imgflip.com";
     public static final String POPULAR_STREAM_URL = "/streams";
     public static final String TOP_USERS_URL = "/topusers";
+    public static final String USER_URL = "/user";
 
     public static String getPagePath(String inStream, int page) {
         String out = IMGFLIP_ROOT_URL;
