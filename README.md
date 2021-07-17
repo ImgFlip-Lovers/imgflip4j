@@ -28,6 +28,46 @@ for (PublishedMeme aMeme : memes) {
 }
 ```
 
-# Resources
+## Popular streams
+
+```java
+logger.info("get populars streams (NSFW not included)");
+List<PopularStream> defaultPopularStreams = PopularStreamCrawler.getPopularStreams();
+for (PopularStream popularStream : defaultPopularStreams) {
+    logger.info("title : {} {}", popularStream.getTitle(), popularStream.getNSFW() ? "(NSFW)" : "");
+}
+logger.info("Count : {}", defaultPopularStreams.size());
+
+logger.info("get populars NSFW streams (only)");
+List<PopularStream> nsfwPopularStreams = PopularStreamCrawler.getPopularNSFWStreams();
+for (PopularStream popularStream : nsfwPopularStreams) {
+    logger.info("title : {} {}", popularStream.getTitle(), popularStream.getNSFW() ? "(NSFW)" : "");
+}
+logger.info("Count : {}", nsfwPopularStreams.size());
+```
+
+## Top Users
+
+```java
+logger.info("get top users");
+List<TopUser> users = TopUserCrawler.getTopUsers();
+for (TopUser user : users) {
+    logger.info("user : {} {}", user.getRank(), user.getUser());
+}
+logger.info("Count : {}", users.size());
+```
+
+## User
+
+```java
+final String userName = "userName";
+
+String url = getUserUrl(userName);
+User user = getUser(userName);
+
+logger.info("user {} ({}) : {}", userName, url, user);
+```
+
+## Resources
 
 - [Imgflip API](https://imgflip.com/api)
