@@ -12,6 +12,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.github.adriens.imgflip.sdk.imgflip.sdk.base.Crawler;
 import com.github.adriens.imgflip.sdk.imgflip.sdk.domain.PopularStream;
+import org.omg.CORBA.INITIALIZE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +27,7 @@ public class PopularStreamCrawler extends Crawler {
 
     public static final String URL = ImgFlipURLHelper.IMGFLIP_ROOT_URL.concat(ImgFlipURLHelper.POPULAR_STREAM_URL);
     public static final String NSFW_PARAM = "?nsfw=1";
+    public static final String INFINITE_CHAR = "∞";
 
 
     public static List<PopularStream> getPopularStreams() throws IOException {
@@ -76,9 +78,7 @@ public class PopularStreamCrawler extends Crawler {
                 popularStream.setDescription(descriptionElement.getTextContent());
 
             // follow count
-            HtmlElement followCountElement = item.getFirstByXPath(".//div[@class='str-item-follow-count']");
-            if (followCountElement != null)
-                popularStream.setFollowCount(Integer.parseInt(followCountElement.getTextContent()));
+            popularStream.setFollowCount(getFollowCount(item));
 
             logger.debug("{}", popularStream);
             popularStreams.add(popularStream);
@@ -86,6 +86,19 @@ public class PopularStreamCrawler extends Crawler {
 
         logger.debug("populars streams count : {}", popularStreams.size());
         return popularStreams;
+    }
+
+    private static Integer getFollowCount(DomElement dom) {
+        HtmlElement followCountElement = dom.getFirstByXPath(".//div[@class='str-item-follow-count']");
+        if (followCountElement != null) {
+            if (INFINITE_CHAR.equals(followCountElement.getTextContent())) {
+                logger.warn("Infinite char detected {}, replace it by {}", INFINITE_CHAR, Integer.MAX_VALUE);
+                return Integer.MAX_VALUE;
+            } else
+                return Integer.parseInt(followCountElement.getTextContent());
+        }
+
+        return null;
     }
 
 
