@@ -1,5 +1,8 @@
 package com.github.adriens.imgflip.sdk.imgflip.sdk.domain.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum RankIcon {
 
     ICO0("ico0", "https://imgflip.com/icons/anon.svg"),
