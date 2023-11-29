@@ -12,7 +12,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         
         <!-- Dependencies properties -->
-        <logback.version>1.2.3</logback.version>
+        <logback.version>1.3.12</logback.version>
         <unirest.version>3.11.11</unirest.version>
         <jackson-databind.version>2.12.2</jackson-databind.version>
         <htmlunit.version>2.48.0</htmlunit.version>
